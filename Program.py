@@ -22,6 +22,11 @@ if input_file_extension == 'json':
         with open(args.input_file, 'r') as file:
             json_data = json.load(file)
         print("Składnia pliku jest poprawna.")
+
+        with open(args.output_file, 'w') as file:
+            json.dump(json_data, file)
+        print("Dane zostały zapisane do pliku w formacie JSON.")
+
     except FileNotFoundError:
         print("Plik wejściowy nie został znaleziony.")
     except json.JSONDecodeError:
