@@ -2,6 +2,7 @@ import argparse
 import string
 import json
 import yaml
+import xml.etree.ElementTree as ET
 
 parser = argparse.ArgumentParser(description='Konwersja plików XML, JSON i YAML.')
 
@@ -47,3 +48,14 @@ elif input_file_extension == 'yml' or input_file_extension == 'yaml':
         print("Plik wejściowy nie został znaleziony.")
     except yaml.YAMLError as exc:
         print("Nieprawidłowa składnia YAML:", exc)
+
+elif input_file_extension == 'xml':
+    try:
+        with open(args.input_file, 'r') as file:
+            xml_data = file.read()
+        print("Składnia pliku jest poprawna.")
+
+    except FileNotFoundError:
+        print("Plik wejściowy nie został znaleziony.")
+    except ET.ParseError as exc:
+        print("Nieprawidłowa składnia XML:", exc)
