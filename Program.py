@@ -1,5 +1,6 @@
 import argparse
 import string
+import json
 
 parser = argparse.ArgumentParser(description='Konwersja plików XML, JSON i YAML.')
 
@@ -11,7 +12,17 @@ args = parser.parse_args()
 
 input_file_extension = args.input_file.split('.')[-1].lower()
 
-print("input_file:", args.input_file)
-print("output_file:", args.output_file)
-print("format:", args.format)
-print("input_file_extension:", input_file_extension) 
+print("Plik wejściowy:", args.input_file)
+print("Plik wyjściowy:", args.output_file)
+print("Format:", args.format)
+print("Rozszerzenie pliku wejściowego:", input_file_extension)
+
+if input_file_extension == 'json':
+    try:
+        with open(args.input_file, 'r') as file:
+            json_data = json.load(file)
+        print("Składnia pliku jest poprawna.")
+    except FileNotFoundError:
+        print("Plik wejściowy nie został znaleziony.")
+    except json.JSONDecodeError:
+        print("Nieprawidłowa składnia JSON.")
