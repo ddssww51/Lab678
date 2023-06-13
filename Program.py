@@ -51,9 +51,12 @@ elif input_file_extension == 'yml' or input_file_extension == 'yaml':
 
 elif input_file_extension == 'xml':
     try:
-        with open(args.input_file, 'r') as file:
-            xml_data = file.read()
+        tree = ET.parse(args.input_file)
+        root = tree.getroot()
         print("Składnia pliku jest poprawna.")
+
+        tree.write(args.output_file)
+        print("Dane zostały zapisane do pliku w formacie XML.")
 
     except FileNotFoundError:
         print("Plik wejściowy nie został znaleziony.")
