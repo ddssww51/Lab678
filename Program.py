@@ -1,6 +1,7 @@
 import argparse
 import string
 import json
+import yaml
 
 parser = argparse.ArgumentParser(description='Konwersja plików XML, JSON i YAML.')
 
@@ -31,3 +32,14 @@ if input_file_extension == 'json':
         print("Plik wejściowy nie został znaleziony.")
     except json.JSONDecodeError:
         print("Nieprawidłowa składnia JSON.")
+
+elif input_file_extension == 'yml' or input_file_extension == 'yaml':
+    try:
+        with open(args.input_file, 'r') as file:
+            yaml_data = yaml.safe_load(file)
+        print("Składnia pliku jest poprawna.")
+
+    except FileNotFoundError:
+        print("Plik wejściowy nie został znaleziony.")
+    except yaml.YAMLError as exc:
+        print("Nieprawidłowa składnia YAML:", exc)
