@@ -39,6 +39,10 @@ elif input_file_extension == 'yml' or input_file_extension == 'yaml':
             yaml_data = yaml.safe_load(file)
         print("Składnia pliku jest poprawna.")
 
+        with open(args.output_file, 'w') as file:
+            yaml.dump(yaml_data, file)
+        print("Dane zostały zapisane do pliku w formacie YAML.")
+
     except FileNotFoundError:
         print("Plik wejściowy nie został znaleziony.")
     except yaml.YAMLError as exc:
